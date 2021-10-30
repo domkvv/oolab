@@ -21,10 +21,10 @@ public class World {
 
         Animal cheburashka = new Animal();
         System.out.println(cheburashka);
-        cheburashka.move(MoveDirection.RIGHT);
-        cheburashka.move(MoveDirection.FORWARD);
-        cheburashka.move(MoveDirection.FORWARD);
-        cheburashka.move(MoveDirection.FORWARD);
+        MoveDirection[] parsed = OptionsParser.parse(args);
+        for (MoveDirection i : parsed) {
+            cheburashka.move(i);
+        }
         System.out.println(cheburashka);
 
     }
