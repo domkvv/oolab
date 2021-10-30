@@ -18,6 +18,15 @@ public class World {
         System.out.println(direction.next());
         System.out.println(direction.previous());
         System.out.println(direction.toUnitVector());
+
+        Animal cheburashka = new Animal();
+        System.out.println(cheburashka);
+        cheburashka.move(MoveDirection.RIGHT);
+        cheburashka.move(MoveDirection.FORWARD);
+        cheburashka.move(MoveDirection.FORWARD);
+        cheburashka.move(MoveDirection.FORWARD);
+        System.out.println(cheburashka);
+
     }
 
     public static Direction[] change(String[] args) {
