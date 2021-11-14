@@ -2,31 +2,13 @@ package agh.ics.oop;
 
 public class World {
     public static void main(String[] args) {
-        System.out.println("Start");
-        Direction[] directions = change(args);
-        run(directions);
-        System.out.println("Stop");
-
-        Vector2d position1 = new Vector2d(1, 2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2, 1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
-
-        MapDirection direction = MapDirection.NORTH;
-        System.out.println(direction.toString());
-        System.out.println(direction.next());
-        System.out.println(direction.previous());
-        System.out.println(direction.toUnitVector());
-
-        Animal cheburashka = new Animal();
-        System.out.println(cheburashka);
-        MoveDirection[] parsed = OptionsParser.parse(args);
-        for (MoveDirection i : parsed) {
-            cheburashka.move(i);
-        }
-        System.out.println(cheburashka);
-
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4)};
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        System.out.println(map.toString());
+        engine.run();
+        System.out.println(map.toString());
     }
 
     public static Direction[] change(String[] args) {

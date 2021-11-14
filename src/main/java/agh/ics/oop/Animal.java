@@ -1,11 +1,37 @@
 package agh.ics.oop;
 
 public class Animal {
-    private Vector2d position = new Vector2d(2, 2);
-    private MapDirection orientation = MapDirection.NORTH;
+    private Vector2d position;
+    private MapDirection orientation;
+    private IWorldMap map;
+
+    Animal() {
+        this.position = new Vector2d(2, 2);
+        this.orientation = MapDirection.NORTH;
+    }
+
+    Animal(IWorldMap map) {
+        this.map = map;
+        this.position = new Vector2d(2, 2);
+        this.orientation = MapDirection.NORTH;
+    }
+
+    Animal(IWorldMap map, Vector2d initialPosition) {
+        this.map = map;
+        this.position = initialPosition;
+        this.orientation = MapDirection.NORTH;
+    }
 
     public String toString() {
-        return "position: " + this.position + " orientation: " + this.orientation;
+        return (this.orientation.toString());
+    }
+
+    public Vector2d getPosition() {
+        return this.position;
+    }
+
+    public MapDirection getOrientation() {
+        return this.orientation;
     }
 
     public void move(MoveDirection direction) {
@@ -32,7 +58,9 @@ public class Animal {
                 }
             }
         }
-        if (x >= 0 && x <= 4 && y >= 0 && y <= 4) this.position = new Vector2d(x, y);
+        if (map.canMoveTo(new Vector2d(x, y))) {
+            this.position = new Vector2d(x, y);
+        }
     }
 
 }
