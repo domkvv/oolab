@@ -60,6 +60,7 @@ public class Animal {
         }
         if (map.canMoveTo(new Vector2d(x, y))) {
             this.position = new Vector2d(x, y);
+
         }
     }
 

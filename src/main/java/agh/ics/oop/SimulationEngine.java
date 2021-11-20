@@ -6,6 +6,7 @@ public class SimulationEngine implements IEngine {
     private final MoveDirection[] directions;
     private final IWorldMap map;
     private final ArrayList<Animal> animals;
+    private ArrayList<Grass> grasses;
 
     SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] initials) {
         this.directions = directions;
@@ -15,6 +16,7 @@ public class SimulationEngine implements IEngine {
             Animal animal = new Animal(map, position);
             if (map.place(animal)) this.animals.add(animal);
         }
+
     }
 
     public void run() {
