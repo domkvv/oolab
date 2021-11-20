@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 public class World {
+
     public static void main(String[] args) {
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new GrassField(10);

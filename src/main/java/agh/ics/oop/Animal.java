@@ -34,6 +34,10 @@ public class Animal {
         return this.orientation;
     }
 
+    boolean isAt(Vector2d position) {
+        return this.position.equals(position);
+    }
+
     public void move(MoveDirection direction) {
         int x = this.position.x;
         int y = this.position.y;
@@ -60,7 +64,6 @@ public class Animal {
         }
         if (map.canMoveTo(new Vector2d(x, y))) {
             this.position = new Vector2d(x, y);
-
         }
     }
 
