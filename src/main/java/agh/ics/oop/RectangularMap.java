@@ -1,6 +1,6 @@
 package agh.ics.oop;
 
-public class RectangularMap extends AbstractWorldMap implements IWorldMap {
+public class RectangularMap extends AbstractWorldMap implements IWorldMap{
 
     public RectangularMap(int width, int height) {
         this.lowerLeft = new Vector2d(0, 0);
@@ -9,13 +9,6 @@ public class RectangularMap extends AbstractWorldMap implements IWorldMap {
 
     public boolean canMoveTo(Vector2d position) {
         return (position.precedes(this.upperRight) && position.follows(this.lowerLeft) && !(isOccupied(position)));
-    }
-
-    public Object objectAt(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.getPosition().equals(position)) return animal;
-        }
-        return null;
     }
 
     public Vector2d[] UpdateLimits() {

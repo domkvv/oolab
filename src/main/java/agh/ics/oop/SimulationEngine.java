@@ -8,6 +8,7 @@ public class SimulationEngine implements IEngine {
     private final ArrayList<Animal> animals;
     private ArrayList<Grass> grasses;
 
+
     SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] initials) {
         this.directions = directions;
         this.map = map;
