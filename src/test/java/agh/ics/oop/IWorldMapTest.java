@@ -44,6 +44,19 @@ public class IWorldMapTest {
     }
 
     @Test
+    void TestRectangularMap3() {
+        try {
+            IWorldMap map = new RectangularMap(10, 10);
+            Animal[] animals = {new Animal(map, new Vector2d(0, 6)), new Animal(map, new Vector2d(8, 3)), new Animal(map, new Vector2d(8, 3))};
+            for (Animal i : animals) {
+                map.place(i);
+            }
+        } catch (IllegalArgumentException ex) {
+            assertEquals("position (8,3) is already occupied by another animal", ex.getMessage());
+        }
+    }
+
+    @Test
     void TestPlaceGrassField1() {
         IWorldMap map = new GrassField(0);
         Animal[] animals = {new Animal(map, new Vector2d(3, 2)), new Animal(map, new Vector2d(2, 2))};

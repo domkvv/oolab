@@ -3,7 +3,7 @@ package agh.ics.oop;
 public class World {
 
     public static void main(String[] args) {
-        try{
+        try {
             MoveDirection[] directions = new OptionsParser().parse(args);
             IWorldMap map = new GrassField(10);
             System.out.println(map.toString());
@@ -12,7 +12,7 @@ public class World {
             System.out.println(map.toString());
             engine.run();
             System.out.println(map.toString());
-        }catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
         }
     }
