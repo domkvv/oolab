@@ -29,7 +29,7 @@ public class IWorldMapTest {
     @Test
     void TestPlaceRectangularMap2() {
         IWorldMap map = new RectangularMap(10, 4);
-        Animal[] animals = {new Animal(map, new Vector2d(7, 1)), new Animal(map, new Vector2d(3, 2)), new Animal(map, new Vector2d(3, 2))};
+        Animal[] animals = {new Animal(map, new Vector2d(7, 1)), new Animal(map, new Vector2d(3, 2))};
         for (Animal i : animals) {
             map.place(i);
         }
@@ -60,7 +60,7 @@ public class IWorldMapTest {
     @Test
     void TestPlaceGrassField2() {
         IWorldMap map = new GrassField(0);
-        Animal[] animals = {new Animal(map, new Vector2d(0, 6)), new Animal(map, new Vector2d(5, 1)), new Animal(map, new Vector2d(0, 6))};
+        Animal[] animals = {new Animal(map, new Vector2d(0, 6)), new Animal(map, new Vector2d(5, 1))};
         for (Animal i : animals) {
             map.place(i);
         }
@@ -74,6 +74,19 @@ public class IWorldMapTest {
                      "  1: | | | | | |^|\r\n" +
                      "  0: -------------\r\n";
         assertEquals(out, map.toString());
+    }
+
+    @Test
+    void TestPlaceGrassField3() {
+        try {
+            IWorldMap map = new GrassField(0);
+            Animal[] animals = {new Animal(map, new Vector2d(0, 6)), new Animal(map, new Vector2d(0, 6)), new Animal(map, new Vector2d(5, 1))};
+            for (Animal i : animals) {
+                map.place(i);
+            }
+        } catch (IllegalArgumentException ex) {
+            assertEquals("position (0,6) is already occupied by another animal", ex.getMessage());
+        }
     }
 
     @Test

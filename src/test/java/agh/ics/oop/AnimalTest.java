@@ -32,7 +32,7 @@ public class AnimalTest {
     void Test3() {
         RectangularMap map = new RectangularMap(10, 10);
         Animal experimental_bunny = new Animal(map, new Vector2d(9, 2));
-        String[] args = {"right", "f", "h", "k", "mm", "p", "leftt", "opps", "backward", "back", "righ", "rigth", "b", "b", "right", "r", "l"};
+        String[] args = {"right", "f", "backward", "b", "b", "right", "r", "l"};
         MoveDirection[] directions = OptionsParser.parse(args);
         for (MoveDirection i : directions) experimental_bunny.move(i);
         assertEquals(new Vector2d(6, 2), experimental_bunny.getPosition());

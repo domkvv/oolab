@@ -1,6 +1,8 @@
 package agh.ics.oop;
 
 public class RectangularMap extends AbstractWorldMap implements IWorldMap{
+    protected Vector2d lowerLeft;
+    protected Vector2d upperRight;
 
     public RectangularMap(int width, int height) {
         this.lowerLeft = new Vector2d(0, 0);

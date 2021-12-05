@@ -46,7 +46,7 @@ public class RectangularMapTest {
     @Test
     void Test3() {
         IWorldMap map = new RectangularMap(8, 3);
-        String[] args = {"r", "b", "f", "f", "r", "r", "f", "f", "f", "l", "f", "l", "ks", "f", "f", "b", "r", "r", "b"};
+        String[] args = {"r", "b", "f", "f", "r", "r", "f", "f", "f", "l", "f", "l", "f", "f", "b", "r", "r", "b"};
         Vector2d[] positions = {new Vector2d(2, 0), new Vector2d(3, 2), new Vector2d(6, 1)};
         MoveDirection[] directions = OptionsParser.parse(args);
         IEngine engine = new SimulationEngine(directions, map, positions);

@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.Arrays;
 
 public class OptionsParser {
-    public static MoveDirection[] parse(String[] args) {
+    public static MoveDirection[] parse(String[] args) throws IllegalArgumentException {
         MoveDirection[] dir = new MoveDirection[args.length];
         int j = 0;
         boolean flag = true;
@@ -13,12 +13,10 @@ public class OptionsParser {
                 case "b", "backward" -> dir[j] = MoveDirection.BACKWARD;
                 case "r", "right" -> dir[j] = MoveDirection.RIGHT;
                 case "l", "left" -> dir[j] = MoveDirection.LEFT;
-                default -> flag = false;
+                default -> throw new IllegalArgumentException(i + " is not legal move specification");
             }
-            if (flag) j += 1;
-            else flag = true;
+            j += 1;
         }
-
         return Arrays.copyOfRange(dir, 0, j);
     }
 

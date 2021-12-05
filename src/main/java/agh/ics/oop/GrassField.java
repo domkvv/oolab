@@ -4,6 +4,7 @@ import java.lang.Math;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GrassField extends AbstractWorldMap implements IWorldMap {
+    private MapBoundary boundary = new MapBoundary();
 
     public GrassField(int n) {
         while (this.elements.size() < n) {
@@ -11,9 +12,18 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
             int y = ThreadLocalRandom.current().nextInt(0, (int) Math.sqrt(10 * n) + 1);
             Vector2d position = new Vector2d(x, y);
             if (objectAt(position) == null) {
-                this.elements.put(position, new Grass(position));
+                Grass new_grass = new Grass(position);
+                this.elements.put(position, new_grass);
+                this.boundary.addElement(new_grass);
             }
         }
+    }
+
+    @Override
+    public boolean place(Animal animal) throws IllegalArgumentException {
+        super.place(animal);
+        this.boundary.addElement(animal);
+        return true;
     }
 
     public boolean canMoveTo(Vector2d position) {
@@ -21,12 +31,8 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
     }
 
     public Vector2d[] UpdateLimits() {
-        Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        Vector2d upperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        for (Vector2d i : elements.keySet()) {
-            lowerLeft = new Vector2d(Math.min(i.x, lowerLeft.x), Math.min(i.y, lowerLeft.y));
-            upperRight = new Vector2d(Math.max(i.x, upperRight.x), Math.max(i.y, upperRight.y));
-        }
+        Vector2d lowerLeft = this.boundary.lowerLeft();
+        Vector2d upperRight = this.boundary.upperRight();
         return new Vector2d[]{lowerLeft, upperRight};
     }
 

@@ -6,16 +6,16 @@ import java.util.Map;
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
     protected final Map<Vector2d, AbstractWorldMapElement> elements = new LinkedHashMap<>();
     protected final MapVisualizer visualizer = new MapVisualizer(this);
-    protected Vector2d lowerLeft;
-    protected Vector2d upperRight;
 
     public boolean isOccupied(Vector2d position) {
         if (objectAt(position) != null) return true;
         return false;
     }
 
-    public boolean place(Animal animal) {
-        if (objectAt(animal.getPosition()) instanceof Animal) return false;
+    public boolean place(Animal animal) throws IllegalArgumentException {
+        if (objectAt(animal.getPosition()) instanceof Animal){
+            throw new IllegalArgumentException("position " + animal.getPosition() + " is already occupied by another animal");
+        }
         animal.addObserver(this);
         this.elements.put(animal.getPosition(), animal);
         return true;
