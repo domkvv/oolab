@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
     protected final Map<Vector2d, AbstractWorldMapElement> elements = new LinkedHashMap<>();
     protected final MapVisualizer visualizer = new MapVisualizer(this);
 
@@ -32,7 +32,7 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
         return null;
     }
 
-    abstract Vector2d[] UpdateLimits();
+    public abstract Vector2d[] UpdateLimits();
 
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         AbstractWorldMapElement moving_animal = this.elements.get(oldPosition);
