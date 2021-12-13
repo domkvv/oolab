@@ -1,8 +1,12 @@
 package agh.ics.oop;
 
+import javafx.scene.image.Image;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class Animal extends AbstractWorldMapElement{
+public class Animal extends AbstractWorldMapElement {
     private Vector2d position;
     private MapDirection orientation;
     private IWorldMap map;
@@ -66,26 +70,36 @@ public class Animal extends AbstractWorldMapElement{
             }
         }
         Vector2d new_position = new Vector2d(x, y);
-        if (map.canMoveTo(new_position)){
+        if (map.canMoveTo(new_position)) {
             positionChanged(this.position, new_position);
             this.position = new_position;
         }
 
     }
 
-    public void addObserver(IPositionChangeObserver observer){
+    public void addObserver(IPositionChangeObserver observer) {
         this.observers.add(observer);
     }
 
-    public void removeObserver(IPositionChangeObserver observer){
+    public void removeObserver(IPositionChangeObserver observer) {
         this.observers.remove(observer);
     }
 
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        for(IPositionChangeObserver observer : observers){
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        for (IPositionChangeObserver observer : observers) {
             observer.positionChanged(oldPosition, newPosition);
         }
     }
 
+    @Override
+    public Image setOrientation() throws FileNotFoundException {
+        return switch (this.orientation.ordinal()) {
+            case 0 -> new Image(new FileInputStream("src/main/resources/up.png"));
+            case 1 -> new Image(new FileInputStream("src/main/resources/down.png"));
+            case 2 -> new Image(new FileInputStream("src/main/resources/left.png"));
+            case 3 -> new Image(new FileInputStream("src/main/resources/right.png"));
+            default -> null;
+        };
+    }
 
 }

@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import javafx.scene.image.Image;
+
+import java.io.FileNotFoundException;
 import java.lang.Math;
 import java.util.concurrent.ThreadLocalRandom;
 

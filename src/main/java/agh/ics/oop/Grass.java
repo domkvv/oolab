@@ -1,6 +1,11 @@
 package agh.ics.oop;
 
-public class Grass extends AbstractWorldMapElement{
+import javafx.scene.image.Image;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class Grass extends AbstractWorldMapElement {
     private Vector2d position;
 
     public Grass(Vector2d position) {
@@ -15,4 +20,8 @@ public class Grass extends AbstractWorldMapElement{
         return "*";
     }
 
+    @Override
+    public Image setOrientation() throws FileNotFoundException {
+        return new Image(new FileInputStream("src/main/resources/tuft.png"));
+    }
 }

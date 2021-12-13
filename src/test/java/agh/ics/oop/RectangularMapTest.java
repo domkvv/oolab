@@ -11,7 +11,7 @@ public class RectangularMapTest {
         String[] args = {"l", "f", "l", "f", "f", "f", "f", "r", "f", "f", "f", "r", "f", "r", "f"};
         Vector2d[] positions = {new Vector2d(6, 7)};
         MoveDirection[] directions = OptionsParser.parse(args);
-        IEngine engine = new SimulationEngine(directions, map, positions);
+        IEngine engine = new SimulationEngine(directions, map, positions, 0);
         engine.run();
         String out = " y\\x  0 1 2 3 4 5 6 7 8 910\r\n" +
                      "  8: -----------------------\r\n" +
@@ -33,7 +33,7 @@ public class RectangularMapTest {
         String[] args = {"f", "f", "r", "b", "f", "l", "r", "f"};
         Vector2d[] positions = {new Vector2d(1, 1), new Vector2d(0, 0)};
         MoveDirection[] directions = OptionsParser.parse(args);
-        IEngine engine = new SimulationEngine(directions, map, positions);
+        IEngine engine = new SimulationEngine(directions, map, positions, 0);
         engine.run();
         String out = " y\\x  0 1\r\n" +
                      "  2: -----\r\n" +
@@ -49,7 +49,7 @@ public class RectangularMapTest {
         String[] args = {"r", "b", "f", "f", "r", "r", "f", "f", "f", "l", "f", "l", "f", "f", "b", "r", "r", "b"};
         Vector2d[] positions = {new Vector2d(2, 0), new Vector2d(3, 2), new Vector2d(6, 1)};
         MoveDirection[] directions = OptionsParser.parse(args);
-        IEngine engine = new SimulationEngine(directions, map, positions);
+        IEngine engine = new SimulationEngine(directions, map, positions, 0);
         engine.run();
         String out = " y\\x  0 1 2 3 4 5 6 7\r\n" +
                      "  3: -----------------\r\n" +

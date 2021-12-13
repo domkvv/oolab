@@ -1,9 +1,13 @@
 package agh.ics.oop;
 
+import javafx.scene.image.Image;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     protected final Map<Vector2d, AbstractWorldMapElement> elements = new LinkedHashMap<>();
     protected final MapVisualizer visualizer = new MapVisualizer(this);
 
@@ -13,7 +17,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     }
 
     public boolean place(Animal animal) throws IllegalArgumentException {
-        if (objectAt(animal.getPosition()) instanceof Animal){
+        if (objectAt(animal.getPosition()) instanceof Animal) {
             throw new IllegalArgumentException("position " + animal.getPosition() + " is already occupied by another animal");
         }
         animal.addObserver(this);
@@ -39,4 +43,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         this.elements.remove(oldPosition);
         this.elements.put(newPosition, moving_animal);
     }
+
+
 }
