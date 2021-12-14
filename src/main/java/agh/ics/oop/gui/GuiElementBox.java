@@ -1,5 +1,6 @@
 package agh.ics.oop.gui;
 
+import agh.ics.oop.Animal;
 import agh.ics.oop.IMapElement;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,8 +17,13 @@ public class GuiElementBox {
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(20);
         imageView.setFitHeight(20);
-        Label label = new Label(element.getPosition().toString());
-        this.vbox = new VBox(label, imageView);
+        Label label;
+        if (element instanceof Animal) {
+            label = new Label("Z" + element.getPosition().toString());
+        } else {
+            label = new Label("Trawa");
+        }
+        this.vbox = new VBox(imageView, label);
     }
 
 }

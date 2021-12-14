@@ -4,15 +4,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class SimulationEngine implements IEngine, Runnable {
-    private final MoveDirection[] directions;
+    private MoveDirection[] directions;
     private final IWorldMap map;
     private final ArrayList<Animal> animals;
-    private ArrayList<Grass> grasses;
     private final ArrayList<ISimulationEngineObserver> observers = new ArrayList<ISimulationEngineObserver>();
     private int moveDelay;
 
-    public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] initials, int moveDelay) {
-        this.directions = directions;
+    public SimulationEngine(IWorldMap map, Vector2d[] initials, int moveDelay) {
         this.map = map;
         this.animals = new ArrayList<Animal>();
         this.moveDelay = moveDelay;
@@ -20,7 +18,10 @@ public class SimulationEngine implements IEngine, Runnable {
             Animal animal = new Animal(map, position);
             if (map.place(animal)) this.animals.add(animal);
         }
+    }
 
+    public void setDirections(MoveDirection[] directions) {
+        this.directions = directions;
     }
 
     public void run() {

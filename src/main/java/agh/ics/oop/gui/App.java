@@ -3,7 +3,6 @@ package agh.ics.oop.gui;
 import agh.ics.oop.*;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,29 +13,18 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 
 public class App extends Application implements ISimulationEngineObserver {
     private AbstractWorldMap map;
     GridPane grid = new GridPane();
+    SimulationEngine engine;
 
     public void init() {
         try {
-            List<String> args = getParameters().getRaw();
-            String[] args_ = new String[args.size()];
-            int j = 0;
-            for (String i : args) {
-                args_[j] = i;
-                j += 1;
-            }
-            MoveDirection[] directions = new OptionsParser().parse(args_);
             this.map = new GrassField(10);
             Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4)};
-            SimulationEngine engine = new SimulationEngine(directions, this.map, positions, 300);
+            this.engine = new SimulationEngine(this.map, positions, 300);
             engine.addObserver(this);
-            Thread engineThread = new Thread(engine);
-            engineThread.start();
-            System.out.println(this.map.toString());
 
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
@@ -44,31 +32,38 @@ public class App extends Application implements ISimulationEngineObserver {
     }
 
     public void start(Stage primaryStage) throws FileNotFoundException {
-
-
-
         makeScene();
-        Scene scene = new Scene(grid, 600, 600);
+        TextField textField = new TextField();
+        textField.setText("animal moves sequence");
+        textField.setPrefWidth(200);
+        textField.setMaxWidth(200);
+        Button start = new Button("start");
+        start.setOnAction(e -> {
+            MoveDirection[] directions = new OptionsParser().parse(
+                    textField.getText().split(" ")
+            );
+            engine.setDirections(directions);
+            Thread engineThread = new Thread(engine);
+            engineThread.start();
+        });
+
+        VBox vbox = new VBox(grid, textField, start);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(20);
+
+        Scene scene = new Scene(vbox, 800, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     private void makeScene() throws FileNotFoundException {
+        grid.setAlignment(Pos.CENTER);
         grid.getColumnConstraints().clear();
         grid.getRowConstraints().clear();
-
-        TextField textField = new TextField();
-        textField.setText("put animal moves sequence here");
-        Button button = new Button("start");
-        HBox hbox = new HBox(textField, button);
-        hbox.setSpacing(20);
-        grid.add(hbox, 20, 20);
-        hbox.setAlignment(Pos.CENTER);
 
         grid.setGridLinesVisible(true);
         Vector2d lowerLeft = this.map.UpdateLimits()[0];
         Vector2d upperRight = this.map.UpdateLimits()[1];
-        grid.setPadding(new Insets(10, 10, 10, 10));
 
         Label label_axis = new Label("y\\x");
         grid.add(label_axis, 0, 0);
@@ -118,7 +113,6 @@ public class App extends Application implements ISimulationEngineObserver {
                 ex.printStackTrace();
             }
         });
-
     }
 
 }
